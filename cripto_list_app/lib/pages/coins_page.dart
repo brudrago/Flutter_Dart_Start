@@ -1,3 +1,4 @@
+import 'package:cripto_list_app/models/Coins.dart';
 import 'package:cripto_list_app/repositories/coins_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,12 @@ class CoinsPage extends StatefulWidget {
 }
 
 class _CoinsPageState extends State<CoinsPage> {
+  final Set<String> selectedCoinSymbols = {};
+
+  bool _isSelected(Coins coin) {
+    return selectedCoinSymbols.contains(coin.symbol);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +26,13 @@ class _CoinsPageState extends State<CoinsPage> {
       body: ListView.separated(
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(CoinsRepository.coinsList[index].name),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            title: Text(
+              CoinsRepository.coinsList[index].name,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             subtitle: Text(
               '${CoinsRepository.coinsList[index].symbol} - ${CoinsRepository.coinsList[index].priceUsd} USD',
             ),
@@ -27,6 +40,18 @@ class _CoinsPageState extends State<CoinsPage> {
               width: 40,
               child: Image.asset(CoinsRepository.coinsList[index].iconUrl),
             ),
+            selected: _isSelected(CoinsRepository.coinsList[index]),
+            selectedTileColor: Colors.indigo.shade50,
+            onTap: () {
+              setState(() {
+                final coin = CoinsRepository.coinsList[index];
+                if (_isSelected(coin)) {
+                  selectedCoinSymbols.remove(coin.symbol);
+                } else {
+                  selectedCoinSymbols.add(coin.symbol);
+                }
+              });
+            },
           );
         },
         padding: const EdgeInsets.all(16),
