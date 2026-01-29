@@ -23,7 +23,10 @@ class _CoinsPageState extends State<CoinsPage> {
             subtitle: Text(
               '${CoinsRepository.coinsList[index].symbol} - ${CoinsRepository.coinsList[index].priceUsd} USD',
             ),
-            leading: Image.asset(CoinsRepository.coinsList[index].iconUrl),
+            leading: SizedBox(
+              width: 40,
+              child: Image.asset(CoinsRepository.coinsList[index].iconUrl),
+            ),
           );
         },
         padding: const EdgeInsets.all(16),
