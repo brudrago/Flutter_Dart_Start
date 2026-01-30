@@ -1,4 +1,4 @@
-import 'package:cripto_list_app/models/Coins.dart';
+import 'package:cripto_list_app/models/coins_model.dart';
 
 class CoinsRepository {
   static List<Coins> coinsList = [

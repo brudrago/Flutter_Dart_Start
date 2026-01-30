@@ -1,4 +1,5 @@
-import 'package:cripto_list_app/models/Coins.dart';
+import 'package:cripto_list_app/models/coins_model.dart';
+import 'package:cripto_list_app/pages/coins_details_page.dart';
 import 'package:cripto_list_app/repositories/coins_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,13 @@ class CoinsPage extends StatefulWidget {
 
   @override
   State<CoinsPage> createState() => _CoinsPageState();
+}
+
+_goToCoinsDetailsPage(Coins coin, BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => CoinsDetailsPage(coin: coin)),
+  );
 }
 
 class _CoinsPageState extends State<CoinsPage> {
@@ -51,6 +59,9 @@ class _CoinsPageState extends State<CoinsPage> {
                   selectedCoinSymbols.add(coin.symbol);
                 }
               });
+            },
+            onLongPress: () {
+              _goToCoinsDetailsPage(CoinsRepository.coinsList[index], context);
             },
           );
         },
